@@ -7,9 +7,6 @@ ENV AMBARI_VERSION $AMBARI_VERSION
 ARG AMBARI_BUILD
 ENV AMBARI_BUILD $AMBARI_BUILD
 
-# Supervisord Config
-COPY ./init/supervisord.ini /etc/supervisord.d/hdp.ini
-
 RUN yum --disablerepo=Updates-ambari-$AMBARI_VERSION -y install postgresql postgresql-server postgresql-contrib
 
 # Ambari Agent
@@ -29,4 +26,7 @@ RUN ambari-server setup --jdbc-driver=/usr/share/java/mysql-connector-java.jar -
 # Manually configuring Ambari Server
 COPY ./init/ambari.properties /etc/ambari-server/conf/ambari.properties
 COPY ./init/password.dat /etc/ambari-server/conf/password.dat
-COPY ./init/ambari-server /etc/init.d/ambari-server
+#COPY ./init/ambari-server /etc/init.d/ambari-server
+
+# Supervisord Config
+COPY ./init/supervisord.ini /etc/supervisord.d/hdp.ini
