@@ -1,11 +1,23 @@
 #!/bin/bash
 
-docker build --tag dstreev/ambari-agent:2.4.2.0 ./ambari-agent
-docker build --tag dstreev/hdp-repo ./hdp-repo
-docker build --tag dstreev/ambari-server:2.4.2.0 ./ambari-server
+. ./init.sh
 
-docker build --tag dstreev/ambari-agent:latest ./ambari-agent
-docker build --tag dstreev/ambari-server:latest ./ambari-server
+echo "**** HDP-BASE *****"
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --build-arg NIFI_BUILD=${NIFI_BUILD} --build-arg NIFI_VERSION=${NIFI_VERSION} --build-arg HDF_VERSION=${HDF_VERSION} --tag dstreev/hdp-base:1.0 ./hdp-base
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --build-arg NIFI_BUILD=${NIFI_BUILD} --build-arg NIFI_VERSION=${NIFI_VERSION} --build-arg HDF_VERSION=${HDF_VERSION} --tag dstreev/hdp-base ./hdp-base
 
-docker build --tag dstreev/nifi:2.1.1.0 ./nifi
-docker build --tag dstreev/nifi:latest ./nifi
+echo "**** AMBARI-AGENT ****"
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --tag dstreev/ambari-agent:${AMBARI_VERSION} ./ambari-agent
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --tag dstreev/ambari-agent:latest ./ambari-agent
+
+echo "**** HDP-REPO *****"
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --build-arg NIFI_BUILD=${NIFI_BUILD} --build-arg NIFI_VERSION=${NIFI_VERSION} --build-arg HDF_VERSION=${HDF_VERSION} --tag dstreev/hdp-repo:1.0 ./hdp-repo
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --build-arg NIFI_BUILD=${NIFI_BUILD} --build-arg NIFI_VERSION=${NIFI_VERSION} --build-arg HDF_VERSION=${HDF_VERSION} --tag dstreev/hdp-repo ./hdp-repo
+
+echo "**** AMBARI-SERVER ****"
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --tag dstreev/ambari-server:${AMBARI_VERSION} ./ambari-server
+docker build --build-arg AMBARI_BUILD=${AMBARI_BUILD} --build-arg AMBARI_VERSION=${AMBARI_VERSION} --tag dstreev/ambari-server ./ambari-server
+
+echo "***** NIFI ****"
+docker build --build-arg AMBARI_VERSION=${AMBARI_VERSION} --build-arg NIFI_BUILD=${NIFI_BUILD} --build-arg NIFI_VERSION=${NIFI_VERSION} --build-arg HDF_VERSION=${HDF_VERSION} --tag dstreev/nifi:${NIFI_VERSION} ./nifi
+docker build --build-arg AMBARI_VERSION=${AMBARI_VERSION} --build-arg NIFI_BUILD=${NIFI_BUILD} --build-arg NIFI_VERSION=${NIFI_VERSION} --build-arg HDF_VERSION=${HDF_VERSION} --tag dstreev/nifi ./nifi
