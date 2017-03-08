@@ -1,4 +1,4 @@
-FROM dstreev/ambari-agent
+FROM dstreev/centos6/ambari-agent
 
 LABEL maintainer "David W. Streever<david@streever.com>"
 

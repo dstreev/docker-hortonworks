@@ -1,11 +1,13 @@
 #!/bin/bash
 
-export AMBARI_VERSION=${1:-2.4.2.0}
-export AMBARI_BUILD=${2:-136}
-export HDF_VERSION=${3:-1.1.0}
-export NIFI_VERSION=${4:-2.1.2.0}
-export NIFI_BUILD=${5:-10}
+export OS_VERSION=${1:-centos6}
+export AMBARI_VERSION=${2:-2.4.2.0}
+export AMBARI_BUILD=${3:-136}
+export HDF_VERSION=${4:-1.1.0}
+export NIFI_VERSION=${5:-2.1.2.0}
+export NIFI_BUILD=${6:-10}
 
+echo "OS_VERSION: ${OS_VERSION}"
 echo "AMBARI_VERSION: ${AMBARI_VERSION}"
 echo "AMBARI_BUILD: ${AMBARI_BUILD}"
 echo "HDF_VERSION: ${HDF_VERSION}"
