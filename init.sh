@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export OS_VERSION=${1:-centos6}
+export OS_VERSION=${1:-centos7}
 export AMBARI_VERSION=${2:-2.4.2.0}
 export AMBARI_BUILD=${3:-136}
 export HDF_VERSION=${4:-1.1.0}

@@ -1,4 +1,4 @@
-FROM dstreev/centos6/hdp-base
+FROM dstreev/centos7/hdp-base
 
 LABEL maintainer "David W. Streever<david@streever.com>"
 
