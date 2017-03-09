@@ -1,4 +1,4 @@
-FROM dstreev/centos7/ambari-agent
+FROM dstreev/centos7_ambari-agent
 
 LABEL maintainer "David W. Streever<david@streever.com>"
 
@@ -6,11 +6,13 @@ ARG AMBARI_VERSION
 ENV AMBARI_VERSION $AMBARI_VERSION
 ARG AMBARI_BUILD
 ENV AMBARI_BUILD $AMBARI_BUILD
+ARG OS_VERSION
+ENV OS_VERSION $OS_VERSION
 
 RUN yum --disablerepo=Updates-ambari-$AMBARI_VERSION -y install postgresql postgresql-server postgresql-contrib
 
 # Ambari Agent
-RUN wget http://s3.amazonaws.com/public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/$AMBARI_VERSION/ambari/ambari-server-$AMBARI_VERSION-$AMBARI_BUILD.x86_64.rpm
+RUN wget http://s3.amazonaws.com/public-repo-1.hortonworks.com/ambari/$OS_VERSION/2.x/updates/$AMBARI_VERSION/ambari/ambari-server-$AMBARI_VERSION-$AMBARI_BUILD.x86_64.rpm
 RUN rpm -ivh ambari-server-$AMBARI_VERSION-$AMBARI_BUILD.x86_64.rpm && rm ambari-server-$AMBARI_VERSION-$AMBARI_BUILD.x86_64.rpm
 
 # Get a newer jdbc driver
