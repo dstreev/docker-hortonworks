@@ -14,6 +14,12 @@ RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 COPY ./init/supervisord.ini /etc/supervisord.d/hdp.ini
 
 # JDK
+RUN mkdir - /usr/java
+WORKDIR /usr/java
+RUN wget http://s3.amazonaws.com/public-repo-1.hortonworks.com/ARTIFACTS/jdk-7u67-linux-x64.tar.gz
+RUN tar -xzf jdk-7u67-linux-x64.tar.gz && rm jdk-7u67-linux-x64.tar.gz
+
+WORKDIR /tmp
 RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm
 RUN rpm -ivh jdk-8u121-linux-x64.rpm && rm jdk-8u121-linux-x64.rpm
 
