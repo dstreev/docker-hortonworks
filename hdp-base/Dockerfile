@@ -32,6 +32,8 @@ COPY ./ssh/id_rsa .ssh/
 COPY ./ssh/id_rsa.pub .ssh/
 COPY ./ssh/id_rsa.pub .ssh/authorized_keys
 
+EXPOSE 22
+
 VOLUME ["/data","/var/log/hadoop","/var/log/hadoop-yarn","/var/log/hadoop-mapreduce","/var/log/hive","/var/log/hbase","/var/log/oozie","/var/log/falcon","/var/log/atlas","/var/log/zookeeper","/var/log/ambari-infra-solr","/var/log/kafka"]
 
 CMD ["/usr/bin/supervisord"]
