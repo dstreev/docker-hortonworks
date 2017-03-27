@@ -19,8 +19,9 @@ RUN cp mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar /usr/shar
 RUN rm -rf mysql-connector-java-5.1.40*
 
 COPY ./init/ambari-agent.ini ambari-agent.ini
-COPY ./init/ambari.properties ambari.properties
-COPY ./init/password.dat password.dat
+COPY ./init/nifi.properties nifi.properties
+COPY ./init/init_db_users.sql init_db_users.sql
+COPY ./init/init_dbs.sql init_dbs.sql
 
 COPY ./ssh/id_rsa .ssh/
 COPY ./ssh/id_rsa.pub .ssh/
