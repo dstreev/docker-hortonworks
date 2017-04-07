@@ -11,6 +11,11 @@ LABEL maintainer "David W. Streever<david@streever.com>"
 
 WORKDIR /root
 
+# Install Docker-CE
+RUN yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+RUN yum makecache fast
+RUN yum -y install docker-ce
+
 # Get a newer jdbc driver
 RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.40.tar.gz
 RUN tar -xvzf mysql-connector-java-5.1.40.tar.gz

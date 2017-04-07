@@ -11,17 +11,17 @@ if [ "${AMBARI_SERVER}" = "true" ]; then
 #    cp /root/password.dat /etc/ambari-server/conf/password.dat
 #    ambari-server setup --jdbc-driver=/usr/share/java/mysql-connector-java.jar --jdbc-db=mysql
     # Initialize the users for the dbs
-    mysql -u root --password=hortonworks -h db.hdp.local < /root/init_db_users.sql
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local < /root/init_db_users.sql
     # Create the databases for this HDP environment
-    mysql -u root --password=hortonworks -h db.hdp.local -e 'create database ambari_${AMBARI_INSTANCE};'
-    mysql -u root --password=hortonworks -h db.hdp.local -e 'create database hive_${AMBARI_INSTANCE};'
-    mysql -u root --password=hortonworks -h db.hdp.local -e 'create database oozie_${AMBARI_INSTANCE};'
-    mysql -u root --password=hortonworks -h db.hdp.local -e 'create database ranger_${AMBARI_INSTANCE};'
-    mysql -u root --password=hortonworks -h db.hdp.local -e 'create database ranger_kms_${AMBARI_INSTANCE};'
-    mysql -u root --password=hortonworks -h db.hdp.local -e 'create database druid_${AMBARI_INSTANCE};'
-    mysql -u root --password=hortonworks -h db.hdp.local -e 'create database superset_${AMBARI_INSTANCE};'
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local -e "create database ambari_${AMBARI_INSTANCE};"
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local -e "create database hive_${AMBARI_INSTANCE};"
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local -e "create database oozie_${AMBARI_INSTANCE};"
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local -e "create database ranger_${AMBARI_INSTANCE};"
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local -e "create database ranger_kms_${AMBARI_INSTANCE};"
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local -e "create database druid_${AMBARI_INSTANCE};"
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local -e "create database superset_${AMBARI_INSTANCE};"
     # Build the Schema for Ambari
-    mysql -u root --password=hortonworks -h db.hdp.local ambari_${AMBARI_INSTANCE} < /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+    /usr/bin/mysql -u root --password=hortonworks -h db.hdp.local ambari_${AMBARI_INSTANCE} < /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
 
     # Setup Ambari and Cluster JDK
     /usr/sbin/ambari-server setup -s --java-home=/usr/java/default
