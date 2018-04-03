@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:centos6
 
 LABEL maintainer "David W. Streever<david@streever.com>"
 

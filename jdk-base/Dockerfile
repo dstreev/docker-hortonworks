@@ -11,7 +11,7 @@ RUN yum -y update && yum -y install yum-utils unzip wget gettext && yum -y insta
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 
 # Supervisord Config
-#COPY ./init/supervisord.ini /etc/supervisord.d/hdp.ini
+COPY ./init/supervisord.ini /etc/supervisord.d/hdp.ini
 
 # JDK
 WORKDIR /tmp
@@ -32,8 +32,11 @@ COPY ./ssh/id_rsa .ssh/
 COPY ./ssh/id_rsa.pub .ssh/
 COPY ./ssh/id_rsa.pub .ssh/authorized_keys
 
-EXPOSE 22
+RUN chmod 600 ./.ssh/id_rsa
+RUN chmod 600 ./.ssh/id_rsa.pub
+RUN chmod 600 ./.ssh/authorized_keys
 
-VOLUME ["/data","/var/log/hadoop","/var/log/hadoop-yarn","/var/log/hadoop-mapreduce","/var/log/hive","/var/log/hbase","/var/log/oozie","/var/log/falcon","/var/log/atlas","/var/log/zookeeper","/var/log/ambari-infra-solr","/var/log/kafka"]
+
+EXPOSE 22
 
 CMD ["/usr/bin/supervisord"]

@@ -22,6 +22,17 @@ COPY ./ssh/id_rsa .ssh/
 COPY ./ssh/id_rsa.pub .ssh/
 COPY ./ssh/id_rsa.pub .ssh/authorized_keys
 
+# JDK
+WORKDIR /tmp
+RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm
+RUN rpm -ivh jdk-8u121-linux-x64.rpm && rm jdk-8u121-linux-x64.rpm
+
+WORKDIR /home/root
+COPY ./init/read.py .
+RUN chmod +x read.py
+
+RUN useradd dstreev
+
 EXPOSE 22
 
 VOLUME ["/hdfs"]
