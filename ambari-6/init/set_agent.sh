@@ -2,7 +2,7 @@
 
 if [ "${AMBARI_AGENT}" = "true" ]; then
     echo "Setting Ambari Repo to Version: ${AMBARI_VERSION}"
-    wget ${REPO_BASE_URL}/ambari/centos7/2.x/updates/${AMBARI_VERSION}/ambari.repo -O /etc/yum.repos.d/ambari.repo
+    wget ${REPO_BASE_URL}/ambari/centos6/2.x/updates/${AMBARI_VERSION}/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
     yum -y install ambari-agent
     echo "Setting Ambari Agent Instance Reference: ${AMBARI_INSTANCE}"

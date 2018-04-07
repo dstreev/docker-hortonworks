@@ -55,4 +55,4 @@ EXPOSE 8000
 EXPOSE 11000
 
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord","-c","/etc/supervisord.d/hdp.ini"]

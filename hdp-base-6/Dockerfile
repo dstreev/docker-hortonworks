@@ -10,9 +10,6 @@ RUN yum -y update && yum -y install yum-utils unzip wget gettext && yum -y insta
 # Generate Host Key for sshd
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
 
-# Supervisord Config
-#COPY ./init/supervisord.ini /etc/supervisord.d/hdp.ini
-
 # JDK
 WORKDIR /tmp
 RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.rpm
@@ -22,6 +19,9 @@ RUN rpm -ivh jdk-8u161-linux-x64.rpm && rm jdk-8u161-linux-x64.rpm
 RUN wget https://github.com/dstreev/hadoop-cli/releases/download/1.0.7.2.7-bin/hadoop-cli-1.0.7-SNAPSHOT-2.7.tar.gz
 RUN tar -xzvf hadoop-cli-1.0.7-SNAPSHOT-2.7.tar.gz
 RUN hadoop-cli-2.7/setup.sh
+
+RUN service iptables stop
+RUN chkconfig iptables off
 
 WORKDIR /root
 
@@ -35,5 +35,3 @@ COPY ./ssh/id_rsa.pub .ssh/authorized_keys
 EXPOSE 22
 
 VOLUME ["/data","/var/log/hadoop","/var/log/hadoop-yarn","/var/log/hadoop-mapreduce","/var/log/hive","/var/log/hbase","/var/log/oozie","/var/log/falcon","/var/log/atlas","/var/log/zookeeper","/var/log/ambari-infra-solr","/var/log/kafka"]
-
-CMD ["/usr/bin/supervisord"]
